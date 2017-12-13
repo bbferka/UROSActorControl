@@ -6,7 +6,9 @@
 
 
 // Sets default values
-AROSActorManager::AROSActorManager():xWorldOffset(-270),yWorldOffset(70),zWorldOffset(0)
+AROSActorManager::AROSActorManager(): ROSBridgeServerIPAddr(TEXT("192.168.100.199")),ROSBridgeServerPort(9090),
+  MarkerTopicName(TEXT("/RoboSherlock/markers")),
+  WorldOffset(-270.0,70.0,0.0)
 {
   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
@@ -18,12 +20,12 @@ void AROSActorManager::BeginPlay()
   Super::BeginPlay();
 
   UE_LOG(LogTemp, Log, TEXT("[ARobCoGGameModeBase::BeginPlay()]"));
-  Handler = MakeShareable<FROSBridgeHandler>(new FROSBridgeHandler(TEXT("192.168.100.199"), 9090));
+  Handler = MakeShareable<FROSBridgeHandler>(new FROSBridgeHandler(*ROSBridgeServerIPAddr, ROSBridgeServerPort));
 
   AddNewObjectServiceServer =
     MakeShareable<FROSUpdateActorPositionServiceServer>(new FROSUpdateActorPositionServiceServer(TEXT("update_objects")));
 
-  Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(TEXT("/RoboSherlock/markers")));
+  Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(*MarkerTopicName));
 
   Handler->AddServiceServer(AddNewObjectServiceServer);
   Handler->AddSubscriber(Subscriber);
@@ -53,9 +55,9 @@ void AROSActorManager::Tick(float DeltaTime)
         poseStamped.SetHeader(posePair.Value.GetHeader());
         poseStamped.SetPose(posePair.Value.GetPose());
         UE_LOG(LogTemp, Log, TEXT("Found actor with given name. Moving it"));
-        FVector trans(-poseStamped.GetPose().GetPosition().GetX() * 100 + xWorldOffset,
-                      poseStamped.GetPose().GetPosition().GetY()  * 100 + yWorldOffset,
-                      poseStamped.GetPose().GetPosition().GetZ()  * 100 + zWorldOffset);
+        FVector trans(-poseStamped.GetPose().GetPosition().GetX() * 100 + WorldOffset.X,
+                      poseStamped.GetPose().GetPosition().GetY()  * 100 + WorldOffset.Y,
+                      poseStamped.GetPose().GetPosition().GetZ()  * 100 + WorldOffset.Z);
         FQuat quat(-poseStamped.GetPose().GetOrientation().GetX(), poseStamped.GetPose().GetOrientation().GetY(),
                    poseStamped.GetPose().GetOrientation().GetZ(), -poseStamped.GetPose().GetOrientation().GetW());
 
@@ -82,9 +84,9 @@ void AROSActorManager::Tick(float DeltaTime)
         UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
         UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
         FROSBridgeMsgGeometrymsgsPose pose = marker.GetPose();
-        FVector trans(-pose.GetPosition().GetX() * 100 + xWorldOffset,
-                      pose.GetPosition().GetY()  * 100 + yWorldOffset,
-                      pose.GetPosition().GetZ()  * 100 + zWorldOffset);
+        FVector trans(-pose.GetPosition().GetX() * 100 + WorldOffset.X,
+                      pose.GetPosition().GetY()  * 100 + WorldOffset.Y,
+                      pose.GetPosition().GetZ()  * 100 + WorldOffset.Z);
         FQuat quat(-pose.GetOrientation().GetX(), pose.GetOrientation().GetY(),
                    pose.GetOrientation().GetZ(), -pose.GetOrientation().GetW());
 

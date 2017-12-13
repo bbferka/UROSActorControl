@@ -31,20 +31,20 @@ public:
   TSharedPtr<FROSMarkerArraySubscriber> Subscriber;
   TSharedPtr<FROSUpdateActorPositionServiceServer> AddNewObjectServiceServer;
 
-  UPROPERTY(EditAnywhere, Category = "Server Settings")
+  UPROPERTY(EditAnywhere, Category = "ROS Settings")
   FString ROSBridgeServerIPAddr;
 
-  UPROPERTY(EditAnywhere, Category = "Server Settings")
+  UPROPERTY(EditAnywhere, Category = "ROS Settings")
   uint32 ROSBridgeServerPort;
 
-  UPROPERTY(EditAnywhere, Category = "Offset (cm) to World")
-  float xWorldOffset;
+  UPROPERTY(EditAnywhere, Category = "ROS Settings")
+  FString MarkerTopicName;
+
 
   UPROPERTY(EditAnywhere, Category = "Offset (cm) to World")
-  float yWorldOffset;
+  FVector WorldOffset;
 
-  UPROPERTY(EditAnywhere, Category = "Offset (cm) to World")
-  float zWorldOffset;
+
 
 protected:
   // Called when the game starts or when spawned
