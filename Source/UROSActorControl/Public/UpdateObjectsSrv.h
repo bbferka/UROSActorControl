@@ -18,17 +18,17 @@ public:
 
     class Request : public SrvRequest {
     private:
-        FROSBridgeMsgStdmsgsString name;
-        FROSBridgeMsgGeometrymsgsPoseStamped poseStamped;
+        std_msgs::String name;
+        geometry_msgs::PoseStamped poseStamped;
 
     public:
-        Request(FROSBridgeMsgStdmsgsString name_,
-                FROSBridgeMsgGeometrymsgsPoseStamped poseStamped_):name(name_),poseStamped(poseStamped_) { }
+        Request(std_msgs::String name_,
+                geometry_msgs::PoseStamped poseStamped_):name(name_),poseStamped(poseStamped_) { }
         Request() {}
-        FROSBridgeMsgStdmsgsString GetName() const { return name; }
-        void SetName(FROSBridgeMsgStdmsgsString name_) { name = name_; }
-        FROSBridgeMsgGeometrymsgsPoseStamped GetPoseStamped() const { return poseStamped; }
-        void setPoseStamped( FROSBridgeMsgGeometrymsgsPoseStamped poseStamped_) {poseStamped = poseStamped_;}
+        std_msgs::String GetName() const { return name; }
+        void SetName(std_msgs::String name_) { name = name_; }
+        geometry_msgs::PoseStamped GetPoseStamped() const { return poseStamped; }
+        void setPoseStamped( geometry_msgs::PoseStamped poseStamped_) {poseStamped = poseStamped_;}
 
         virtual void FromJson(TSharedPtr<FJsonObject> JsonObject) override {
             name = JsonObject->GetStringField("name");

@@ -8,10 +8,10 @@
 #include "CoreMinimal.h"
 #include "ROSBridgeHandler.h"
 #include "ROSBridgeSubscriber.h"
-#include "visualization_msgs/MarkerArray.h"
+//#include "visualization_msgs/MarkerArray.h"
 
 #include "UpdateObjectsSrv.h"
-#include "ROSMarkerArraySubscriber.h"
+//#include "ROSMarkerArraySubscriber.h"
 #include "UpdateActorPositionServiceServer.h"
 #include "ROSActorManager.generated.h"
 
@@ -28,7 +28,7 @@ public:
 
   TSharedPtr<FROSBridgeHandler> Handler;
 
-  TSharedPtr<FROSMarkerArraySubscriber> Subscriber;
+//  TSharedPtr<FROSMarkerArraySubscriber> Subscriber;
   TSharedPtr<FROSUpdateActorPositionServiceServer> AddNewObjectServiceServer;
 
   UPROPERTY(EditAnywhere, Category = "ROS Settings")

@@ -2,7 +2,7 @@
 
 
 #include "ROSActorManager.h"
-#include "ROSMarkerArraySubscriber.h"
+//#include "ROSMarkerArraySubscriber.h"
 
 
 // Sets default values
@@ -25,10 +25,10 @@ void AROSActorManager::BeginPlay()
   AddNewObjectServiceServer =
     MakeShareable<FROSUpdateActorPositionServiceServer>(new FROSUpdateActorPositionServiceServer(TEXT("update_objects")));
 
-  Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(*MarkerTopicName));
+  //Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(*MarkerTopicName));
 
   Handler->AddServiceServer(AddNewObjectServiceServer);
-  Handler->AddSubscriber(Subscriber);
+//  Handler->AddSubscriber(Subscriber);
 
   Handler->Connect();
   UE_LOG(LogTemp, Log, TEXT("[ARobCoGGameModeBase::BeginPlay()] Websocket server connected."));
@@ -39,7 +39,7 @@ void AROSActorManager::BeginPlay()
 // Called every frame
 void AROSActorManager::Tick(float DeltaTime)
 {  
-  Handler->Render();
+  Handler->Process();
   TNamePosePair posePair;
 
   //see if camera needs moving;
@@ -51,7 +51,7 @@ void AROSActorManager::Tick(float DeltaTime)
     {
       if(ActorItr->GetName().Contains("RGBDCamera"))
       {
-        FROSBridgeMsgGeometrymsgsPoseStamped poseStamped;
+        geometry_msgs::PoseStamped poseStamped;
         poseStamped.SetHeader(posePair.Value.GetHeader());
         poseStamped.SetPose(posePair.Value.GetPose());
         UE_LOG(LogTemp, Log, TEXT("Found actor with given name. Moving it"));
@@ -68,7 +68,7 @@ void AROSActorManager::Tick(float DeltaTime)
   }
 
   //loop through markers and spawn
-  FROSBridgeMsgVisualizationmsgsMarker marker;
+/*  visualization_msgs::Marker marker;
   while(Subscriber->ObjectsToUpdate.Dequeue(marker))
   {
     for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -83,7 +83,7 @@ void AROSActorManager::Tick(float DeltaTime)
       {
         UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
         UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
-        FROSBridgeMsgGeometrymsgsPose pose = marker.GetPose();
+        geometry_msgs::Pose pose = marker.GetPose();
         FVector trans(-pose.GetPosition().GetX() * 100 + WorldOffset.X,
                       pose.GetPosition().GetY()  * 100 + WorldOffset.Y,
                       pose.GetPosition().GetZ()  * 100 + WorldOffset.Z);
@@ -96,7 +96,8 @@ void AROSActorManager::Tick(float DeltaTime)
       }
 
     }
-  }
+  }*/
+  UE_LOG(LogTemp, Log, TEXT("Tick in actor"));
   UpdateComponentTransforms();
   Super::Tick(DeltaTime);
 }

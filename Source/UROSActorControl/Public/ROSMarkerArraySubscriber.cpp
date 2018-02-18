@@ -19,21 +19,21 @@ TSharedPtr<FROSBridgeMsg> FROSMarkerArraySubscriber::ParseMessage
 (TSharedPtr<FJsonObject> JsonObject) const
 {
   UE_LOG(LogTemp, Log, TEXT("In the ParseMessage"));
-  TSharedPtr<FROSBridgeMsgVisualizationmsgsMarkerArray> VisArrayMessage =
-    MakeShareable<FROSBridgeMsgVisualizationmsgsMarkerArray>(new FROSBridgeMsgVisualizationmsgsMarkerArray());
+  TSharedPtr<visualization_msgs::MarkerArray> VisArrayMessage =
+    MakeShareable<visualization_msgs::MarkerArray>(new visualization_msgs::MarkerArray());
   VisArrayMessage->FromJson(JsonObject);
 
   UE_LOG(LogTemp, Log, TEXT("In the ParseMessage [%s]"), *VisArrayMessage->ToString());
   return StaticCastSharedPtr<FROSBridgeMsg>(VisArrayMessage);
 }
 
-void FROSMarkerArraySubscriber::CallBack(TSharedPtr<FROSBridgeMsg> msg)
+void FROSMarkerArraySubscriber::Callback(TSharedPtr<FROSBridgeMsg> msg)
 {
-  TSharedPtr<FROSBridgeMsgVisualizationmsgsMarkerArray> ArrayMessage = StaticCastSharedPtr<FROSBridgeMsgVisualizationmsgsMarkerArray>(msg);
+  TSharedPtr<visualization_msgs::MarkerArray> ArrayMessage = StaticCastSharedPtr<visualization_msgs::MarkerArray>(msg);
   // downcast to subclass using StaticCastSharedPtr function
-  TArray<FROSBridgeMsgVisualizationmsgsMarker> marker_array = ArrayMessage->GetMarkers();
+  TArray<visualization_msgs::Marker> marker_array = ArrayMessage->GetMarkers();
 
-  for(FROSBridgeMsgVisualizationmsgsMarker & marker : marker_array)
+  for(visualization_msgs::Marker & marker : marker_array)
   {
     if(marker.GetMarkeType() == 10)//marker is a mesh resource
     {

@@ -7,7 +7,7 @@
 #include "UpdateObjectsSrv.h"
 #include "geometry_msgs/PoseStamped.h"
 
-typedef TPair < FString, FROSBridgeMsgGeometrymsgsPoseStamped > TNamePosePair;
+typedef TPair < FString, geometry_msgs::PoseStamped > TNamePosePair;
 
 class FROSUpdateActorPositionServiceServer : public FROSBridgeSrvServer
 {
@@ -31,13 +31,13 @@ public:
     return TSharedPtr<FROSBridgeSrv::SrvRequest>(Request_);
   }
 
-  TSharedPtr<FROSBridgeSrv::SrvResponse> CallBack(TSharedPtr<FROSBridgeSrv::SrvRequest> Request) override
+  TSharedPtr<FROSBridgeSrv::SrvResponse> Callback(TSharedPtr<FROSBridgeSrv::SrvRequest> Request) override
   {
     TSharedPtr<FROSBridgeSrvUpdateObjects::Request> Request_ =
       StaticCastSharedPtr<FROSBridgeSrvUpdateObjects::Request>(Request);
 
     FString name = Request_->GetName().ToString();
-    FROSBridgeMsgGeometrymsgsPoseStamped ps = Request_->GetPoseStamped();
+    geometry_msgs::PoseStamped ps = Request_->GetPoseStamped();
 
     TNamePosePair posePair(name,ps);
     MessageQueue.Enqueue(posePair);

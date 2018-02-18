@@ -6,12 +6,9 @@
 
 class FROSMarkerArraySubscriber : public FROSBridgeSubscriber {
 
-
-
-
 public:
-  TMap <int32,FROSBridgeMsgVisualizationmsgsMarker> objects;
-  TQueue <FROSBridgeMsgVisualizationmsgsMarker> ObjectsToUpdate;
+  TMap <int32,visualization_msgs::Marker> objects;
+  TQueue <visualization_msgs::Marker> ObjectsToUpdate;
   TMap <FString,FString> nameMapping;
 
   FROSMarkerArraySubscriber(FString Topic_);
@@ -20,7 +17,7 @@ public:
 
   TSharedPtr<FROSBridgeMsg> ParseMessage(TSharedPtr<FJsonObject> JsonObject) const override;
 
-  void CallBack(TSharedPtr<FROSBridgeMsg> msg) override;
+  void Callback(TSharedPtr<FROSBridgeMsg> msg) override;
 
 
 };
