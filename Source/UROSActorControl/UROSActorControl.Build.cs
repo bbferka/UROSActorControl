@@ -30,6 +30,8 @@ public class UROSActorControl : ModuleRules
 				"Core",
 				"Engine",
 				"UROSBridge",
+                "Json",
+                "JsonUtilities"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

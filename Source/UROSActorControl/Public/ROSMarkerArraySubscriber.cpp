@@ -2,7 +2,7 @@
 
 
 FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
-  FROSBridgeSubscriber(TEXT("visualization_msgs/MarkerArray"), Topic_)
+  FROSBridgeSubscriber(Topic_, TEXT("visualization_msgs/MarkerArray"))
 {
   UE_LOG(LogTemp, Log, TEXT("Subscriber created"));
   nameMapping.Add(TEXT("cup_eco_orange"), TEXT("SM_CupEcoOrange_2"));

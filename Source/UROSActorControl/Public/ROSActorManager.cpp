@@ -2,7 +2,7 @@
 
 
 #include "ROSActorManager.h"
-//#include "ROSMarkerArraySubscriber.h"
+#include "ROSMarkerArraySubscriber.h"
 
 
 // Sets default values
@@ -25,14 +25,13 @@ void AROSActorManager::BeginPlay()
   AddNewObjectServiceServer =
     MakeShareable<FROSUpdateActorPositionServiceServer>(new FROSUpdateActorPositionServiceServer(TEXT("update_objects")));
 
-  //Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(*MarkerTopicName));
+    Subscriber = MakeShareable<FROSMarkerArraySubscriber>(new FROSMarkerArraySubscriber(*MarkerTopicName));
+	
+	Handler->Connect();
+	Handler->AddServiceServer(AddNewObjectServiceServer);
+	Handler->AddSubscriber(Subscriber);
 
-  Handler->AddServiceServer(AddNewObjectServiceServer);
-//  Handler->AddSubscriber(Subscriber);
-
-  Handler->Connect();
-  UE_LOG(LogTemp, Log, TEXT("[ARobCoGGameModeBase::BeginPlay()] Websocket server connected."));
-
+    UE_LOG(LogTemp, Log, TEXT("[ARobCoGGameModeBase::BeginPlay()] Websocket server connected."));
 }
 
 
@@ -68,7 +67,7 @@ void AROSActorManager::Tick(float DeltaTime)
   }
 
   //loop through markers and spawn
-/*  visualization_msgs::Marker marker;
+  visualization_msgs::Marker marker;
   while(Subscriber->ObjectsToUpdate.Dequeue(marker))
   {
     for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -96,7 +95,7 @@ void AROSActorManager::Tick(float DeltaTime)
       }
 
     }
-  }*/
+  }
   UE_LOG(LogTemp, Log, TEXT("Tick in actor"));
   UpdateComponentTransforms();
   Super::Tick(DeltaTime);
