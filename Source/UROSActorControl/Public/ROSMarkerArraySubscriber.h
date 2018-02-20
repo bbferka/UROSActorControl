@@ -7,6 +7,7 @@
 class FROSMarkerArraySubscriber : public FROSBridgeSubscriber {
 
 public:
+
   TMap <int32,visualization_msgs::Marker> objects;
   TQueue <visualization_msgs::Marker> ObjectsToUpdate;
   TMap <FString,FString> nameMapping;

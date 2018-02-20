@@ -5,11 +5,13 @@ FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
   FROSBridgeSubscriber(Topic_, TEXT("visualization_msgs/MarkerArray"))
 {
   UE_LOG(LogTemp, Log, TEXT("Subscriber created"));
-  nameMapping.Add(TEXT("cup_eco_orange"), TEXT("SM_CupEcoOrange_2"));
-  nameMapping.Add(TEXT("edeka_red_bowl"), TEXT("SM_Bowl_8"));
-  nameMapping.Add(TEXT("koelln_muesli_knusper_honig_nuss"), TEXT("SM_KoellnMuesliKnusperHonigNuss2_15"));
-  nameMapping.Add(TEXT("spoon_blue_plastic"), TEXT("SM_Spoon_Dessert9_2"));
-  nameMapping.Add(TEXT("weide_milch_small"), TEXT("SM_VollMilch_5"));
+  nameMapping.Add(TEXT("CupEcoOrange"), TEXT("SM_CupEcoOrange_2"));
+  nameMapping.Add(TEXT("EdekaRedBowl"), TEXT("SM_Bowl_2"));
+  nameMapping.Add(TEXT("KoellnMuesliKnusperHonigNuss"), TEXT("SM_KoellnMuesliKnusperHonigNussNew_12	"));
+  nameMapping.Add(TEXT("SpoonBluePlastic"), TEXT("SM_Spoon_Dessert9_2"));
+  nameMapping.Add(TEXT("WeideMilchSmall"), TEXT("SM_VollMilch_21"));
+  nameMapping.Add(TEXT("LionCerealBox"), TEXT("SM_LionCereal_15"));
+  nameMapping.Add(TEXT("VollMilch"), TEXT("SM_VollMilch_21"));
 }
 
 FROSMarkerArraySubscriber::~FROSMarkerArraySubscriber() {}

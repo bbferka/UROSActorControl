@@ -6,7 +6,7 @@
 
 
 // Sets default values
-AROSActorManager::AROSActorManager(): ROSBridgeServerIPAddr(TEXT("192.168.100.199")),ROSBridgeServerPort(9090),
+AROSActorManager::AROSActorManager(): ROSBridgeServerIPAddr(TEXT("192.168.101.165")),ROSBridgeServerPort(9090),
   MarkerTopicName(TEXT("/RoboSherlock/markers")),
   WorldOffset(-270.0,70.0,0.0)
 {
@@ -70,17 +70,19 @@ void AROSActorManager::Tick(float DeltaTime)
   visualization_msgs::Marker marker;
   while(Subscriber->ObjectsToUpdate.Dequeue(marker))
   {
-    for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	FString meshResource = marker.GetMeshResource();
+	int32 idxFrom = meshResource.Len() - meshResource.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd);
+	meshResource = meshResource.Right(idxFrom - 1);
+	int32 idxTo = meshResource.Find(TEXT("."));
+	meshResource = meshResource.Left(idxTo);
+	if (Subscriber->nameMapping.Find(meshResource) == nullptr) continue;
+	FString actorName = Subscriber->nameMapping[meshResource];
+	UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
+	UE_LOG(LogTemp, Log, TEXT("Equivalent actor: %s"), *actorName);
+	for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
     {
-      FString meshResource = marker.GetMeshResource();
-      int32 idxFrom = meshResource.Len() - meshResource.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd);
-      meshResource = meshResource.Right(idxFrom - 1);
-      int32 idxTo = meshResource.Find(TEXT("."));
-      meshResource = meshResource.Left(idxTo);
-      FString actorName = Subscriber->nameMapping[meshResource];
-      if(ActorItr->GetName().Equals(actorName))
-      {
-        UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
+      if (ActorItr->GetName().Equals(actorName))
+      {	
         UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
         geometry_msgs::Pose pose = marker.GetPose();
         FVector trans(-pose.GetPosition().GetX() * 100 + WorldOffset.X,
@@ -90,13 +92,13 @@ void AROSActorManager::Tick(float DeltaTime)
                    pose.GetOrientation().GetZ(), -pose.GetOrientation().GetW());
 
         UE_LOG(LogTemp, Log, TEXT("Marker trans: %f %f %f"), trans[0], trans[1], trans[2]);
+		
         ActorItr->SetActorLocationAndRotation(trans, quat);
         ActorItr->SetActorHiddenInGame(false);
       }
-
     }
   }
-  UE_LOG(LogTemp, Log, TEXT("Tick in actor"));
+
   UpdateComponentTransforms();
   Super::Tick(DeltaTime);
 }
