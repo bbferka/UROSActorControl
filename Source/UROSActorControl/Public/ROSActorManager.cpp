@@ -18,7 +18,7 @@ AROSActorManager::AROSActorManager(): ROSBridgeServerIPAddr(TEXT("192.168.101.16
 void AROSActorManager::BeginPlay()
 {
   Super::BeginPlay();
-
+  
   UE_LOG(LogTemp, Log, TEXT("[ARobCoGGameModeBase::BeginPlay()]"));
   Handler = MakeShareable<FROSBridgeHandler>(new FROSBridgeHandler(*ROSBridgeServerIPAddr, ROSBridgeServerPort));
 
@@ -79,11 +79,14 @@ void AROSActorManager::Tick(float DeltaTime)
 	FString actorName = Subscriber->nameMapping[meshResource];
 	UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
 	UE_LOG(LogTemp, Log, TEXT("Equivalent actor: %s"), *actorName);
+	
 	for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
     {
       if (ActorItr->GetName().Equals(actorName))
       {	
-        UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
+		GEditor->SelectActor(*ActorItr,true,true);
+        
+		UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
         geometry_msgs::Pose pose = marker.GetPose();
         FVector trans(-pose.GetPosition().GetX() * 100 + WorldOffset.X,
                       pose.GetPosition().GetY()  * 100 + WorldOffset.Y,

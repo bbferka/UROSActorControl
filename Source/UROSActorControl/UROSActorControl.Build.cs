@@ -19,6 +19,7 @@ public class UROSActorControl : ModuleRules
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				"UROSActorControl/Private",
+                
 				// ... add other private include paths required here ...
 			}
 			);
@@ -28,6 +29,7 @@ public class UROSActorControl : ModuleRules
 			new string[]
 			{
 				"Core",
+                "UnrealEd",
 				"Engine",
 				"UROSBridge",
                 "Json",
@@ -41,7 +43,8 @@ public class UROSActorControl : ModuleRules
 			new string[]
 			{
 				"CoreUObject",
-				"Engine",
+                "UnrealEd",
+                "Engine",
 				"Slate",
 				"SlateCore",
 				"RenderCore",

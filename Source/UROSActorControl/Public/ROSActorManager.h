@@ -2,9 +2,10 @@
 
 #pragma once
 
+
+
 #include "GameFramework/Actor.h"
 #include "Engine.h"
-//#include "EditorEngine.h"
 #include "CoreMinimal.h"
 #include "ROSBridgeHandler.h"
 #include "ROSBridgeSubscriber.h"
@@ -13,6 +14,7 @@
 #include "UpdateObjectsSrv.h"
 #include "ROSMarkerArraySubscriber.h"
 #include "UpdateActorPositionServiceServer.h"
+#include "UnrealEd.h"
 #include "ROSActorManager.generated.h"
 
 
