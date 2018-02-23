@@ -8,13 +8,13 @@ FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
 
   //scenario1
   nameMapping.Add(TEXT("BluePlasticSpoon"), TEXT("SM_BluePlasticSpoon_41"));
-  nameMapping.Add(TEXT("EdekaRedBowl"), TEXT("SM_EdekaRedBowl_50"));
-  nameMapping.Add(TEXT("JeMilch"), TEXT("SM_JeMilch_30"));
+  nameMapping.Add(TEXT("EdekaRedBowl"), TEXT("SM_EdekaRedBowl_14"));
+  nameMapping.Add(TEXT("JaMilch"), TEXT("SM_JaMilch_30"));
   nameMapping.Add(TEXT("CupEcoOrange"), TEXT("SM_CupEcoOrange_2"));
   nameMapping.Add(TEXT("KelloggsCornFlakes"), TEXT("SM_KelloggsCornFlakes_60"));
   nameMapping.Add(TEXT("KelloggsToppasMini"), TEXT("SM_KelloggsToppasMini_101"));
   nameMapping.Add(TEXT("KnusperSchokoKeks"), TEXT("SM_KnusperSchokoKeks_63"));
-  nameMapping.Add(TEXT("KoellnMuesliKnusperHonigNuss"), TEXT("SM_KoellnMuesliKnusperHonigNuss2_32	"));
+  nameMapping.Add(TEXT("KoellnMuesliKnusperHonigNuss"), TEXT("SM_KoellnMuesliKnusperHonigNuss2_32"));
   nameMapping.Add(TEXT("LargeGreySpoon"), TEXT("SM_LargeGreySpoon_38"));
   nameMapping.Add(TEXT("LionCerealBox"), TEXT("SM_LionCerealBox_92"));
   nameMapping.Add(TEXT("NesquikCereal"), TEXT("SM_NesquikCereal_7"));
@@ -23,7 +23,7 @@ FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
   nameMapping.Add(TEXT("SojaMilch"), TEXT("SM_SojaMilch_27"));
   nameMapping.Add(TEXT("VollMilch"), TEXT("SM_VollMilch_21"));
   nameMapping.Add(TEXT("WeideMilchSmall"), TEXT("SM_WeideMilchSmall_57"));
-  nameMapping.Add(TEXT("WhiteCeraicIkeaBowl"), TEXT("SM_WhiteCeramicIkeaBowl_47"));
+  nameMapping.Add(TEXT("WhiteCeramicIkeaBowl"), TEXT("SM_WhiteCeramicIkeaBowl_47"));
 
   //scenario2
   nameMapping.Add(TEXT("AlbiHimbeerJuice"), TEXT("SM_AlbiHimbeerJuice_35"));

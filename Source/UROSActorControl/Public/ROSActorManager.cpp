@@ -8,7 +8,7 @@
 // Sets default values
 AROSActorManager::AROSActorManager(): ROSBridgeServerIPAddr(TEXT("192.168.101.165")),ROSBridgeServerPort(9090),
   MarkerTopicName(TEXT("/RoboSherlock/markers")),
-  WorldOffset(-270.0,70.0,0.0)
+  WorldOffset(-270.0,70.0,3.0)
 {
   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
@@ -68,8 +68,27 @@ void AROSActorManager::Tick(float DeltaTime)
 
   //loop through markers and spawn
   visualization_msgs::Marker marker;
+  bool first = true;
   while(Subscriber->ObjectsToUpdate.Dequeue(marker))
   {
+	if (first)
+	{
+		for(auto prev:previousObjects)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Previously seen: %s"), *prev);
+		}
+		for (TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+		{
+			int32 index;
+			if (previousObjects.Find(ActorItr->GetName(), index))
+			{
+				ActorItr->SetActorHiddenInGame(true);
+			}
+		}
+		previousObjects.Empty();
+		first = false;
+	}
+
 	FString meshResource = marker.GetMeshResource();
 	int32 idxFrom = meshResource.Len() - meshResource.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd);
 	meshResource = meshResource.Right(idxFrom - 1);
@@ -79,7 +98,7 @@ void AROSActorManager::Tick(float DeltaTime)
 	FString actorName = Subscriber->nameMapping[meshResource];
 	UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
 	UE_LOG(LogTemp, Log, TEXT("Equivalent actor: %s"), *actorName);
-	
+	previousObjects.Add(actorName);
 	for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
     {
       if (ActorItr->GetName().Equals(actorName))

@@ -18,7 +18,6 @@
 #include "ROSActorManager.generated.h"
 
 
-
 UCLASS()
 class UROSACTORCONTROL_API AROSActorManager : public AActor
 {
@@ -32,6 +31,8 @@ public:
 
   TSharedPtr<FROSMarkerArraySubscriber> Subscriber;
   TSharedPtr<FROSUpdateActorPositionServiceServer> AddNewObjectServiceServer;
+
+  TArray <FString> previousObjects;
 
   UPROPERTY(EditAnywhere, Category = "ROS Settings")
   FString ROSBridgeServerIPAddr;
