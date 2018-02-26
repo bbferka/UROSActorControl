@@ -10,7 +10,6 @@ FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
   nameMapping.Add(TEXT("BluePlasticSpoon"), TEXT("SM_BluePlasticSpoon_41"));
   nameMapping.Add(TEXT("EdekaRedBowl"), TEXT("SM_EdekaRedBowl_14"));
   nameMapping.Add(TEXT("JaMilch"), TEXT("SM_JaMilch_30"));
-  nameMapping.Add(TEXT("CupEcoOrange"), TEXT("SM_CupEcoOrange_2"));
   nameMapping.Add(TEXT("KelloggsCornFlakes"), TEXT("SM_KelloggsCornFlakes_60"));
   nameMapping.Add(TEXT("KelloggsToppasMini"), TEXT("SM_KelloggsToppasMini_101"));
   nameMapping.Add(TEXT("KnusperSchokoKeks"), TEXT("SM_KnusperSchokoKeks_63"));
@@ -34,9 +33,9 @@ FROSMarkerArraySubscriber::FROSMarkerArraySubscriber(FString Topic_):
   nameMapping.Add(TEXT("JodSalz"), TEXT("SM_JodSalz_75"));
   nameMapping.Add(TEXT("LinuxCup"), TEXT("SM_LinuxCup_93"));
   nameMapping.Add(TEXT("MarkenSalz"), TEXT("SM_MarkenSalz_14"));
-  nameMapping.Add(TEXT("MeerSalz"), TEXT("SM_JodSalz_72"));
+  nameMapping.Add(TEXT("MeerSalz"), TEXT("SM_MeerSalz_72"));
   nameMapping.Add(TEXT("PfannerGruneIcetea"), TEXT("SM_PfannerGruneIcetea_69"));
-  nameMapping.Add(TEXT("PfannerPfirsichIcetea"), TEXT("SM_PfannerPfirsichIcetea_24"));
+  nameMapping.Add(TEXT("PfannerPfirsichIcetea"), TEXT("SM_PfannerPfirsichIcetea_3"));
   nameMapping.Add(TEXT("RedMetalCupWhiteSpeckles"), TEXT("SM_RedMetalCupWhiteSpeckles_96"));
   nameMapping.Add(TEXT("RedMetalPlateWhiteSpeckles"), TEXT("SM_RedMetalPlateWhiteSpeckles_87"));
   nameMapping.Add(TEXT("RedPlasticKnife"), TEXT("SM_RedPlasticKnife_23"));

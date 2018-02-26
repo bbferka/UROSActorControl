@@ -71,6 +71,7 @@ void AROSActorManager::Tick(float DeltaTime)
   bool first = true;
   while(Subscriber->ObjectsToUpdate.Dequeue(marker))
   {
+	UE_LOG(LogTemp, Error, TEXT("DEQUEUE"));
 	if (first)
 	{
 		for(auto prev:previousObjects)
@@ -99,10 +100,12 @@ void AROSActorManager::Tick(float DeltaTime)
 	UE_LOG(LogTemp, Log, TEXT("Marker Mesh: %s"), *meshResource);
 	UE_LOG(LogTemp, Log, TEXT("Equivalent actor: %s"), *actorName);
 	previousObjects.Add(actorName);
+	bool found = false;
 	for(TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
     {
       if (ActorItr->GetName().Equals(actorName))
       {	
+		found = true;
 		GEditor->SelectActor(*ActorItr,true,true);
         
 		UE_LOG(LogTemp, Log, TEXT("Found actor with given name [%s]"), *actorName);
@@ -117,8 +120,13 @@ void AROSActorManager::Tick(float DeltaTime)
 		
         ActorItr->SetActorLocationAndRotation(trans, quat);
         ActorItr->SetActorHiddenInGame(false);
+		break;
       }
     }
+	if (!found)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No actor with the name: %s"), *actorName);
+	}
   }
 
   UpdateComponentTransforms();
